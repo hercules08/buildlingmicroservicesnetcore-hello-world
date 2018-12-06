@@ -1,12 +1,25 @@
 ﻿using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 
-namespace chap1
+namespace helloworld
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Damola Omotosho!");
+            var config = new ConfigurationBuilder()
+                    .AddCommandLine(args)
+                    .Build();
+
+            var host = new WebHostBuilder()
+                .UseKestrel()
+                .UseStartup<Startup>()
+                .UseConfiguration(config)
+                .Build();
+
+            host.Run();
         }
     }
 }
